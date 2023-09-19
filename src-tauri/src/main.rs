@@ -1,16 +1,16 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use std::fmt::format;
-use std::process::{Command,};
-use std::thread;
 use clap::builder::Str;
 use serde::__private::de::IdentifierDeserializer;
+use std::fmt::format;
+use std::process::Command;
+use std::thread;
 
 mod cluster;
+use crate::cluster::create_file;
 use cluster::create_api;
 use log::info;
-use crate::cluster::create_file;
 
 // use cluster::create_file;
 // use clap::Parser;
@@ -62,9 +62,7 @@ fn greet(name: &str) -> String {
 // }
 
 fn create_command() {
-    let command = clap::Command::new("cluster-info")
-        .subcommand(clap::Command::new("cluster-data"))
-        ;
+    let command = clap::Command::new("cluster-info").subcommand(clap::Command::new("cluster-data"));
 }
 
 // struct Args {
@@ -90,30 +88,23 @@ fn create_command() {
 //     }
 // }
 
-
 /// Api is the same as go tasks https://taskfile.dev/api/
 /// Todo try to make it generic without writing
-struct InternalCommand {
-
-}
-
+struct InternalCommand {}
 
 struct Task {
     color: bool,
-
 }
 
 fn install_clusters_parallel() {
     thread::spawn(move || {
-    //     // some work here
-    //     create_api("task -a".to_string());
+        //     // some work here
+        //     create_api("task -a".to_string());
         create_api("ctlptl create cluster k3d --registry=ctlptl-registry".to_string());
         println!("Finished creating k3d cluster");
 
         // create_api("minikube create".to_string());
         // println!("Finished creating minikube cluster");
-
-
     });
     thread::spawn(move || {
         // some work here
@@ -127,19 +118,19 @@ fn install_clusters_parallel() {
 #[tauri::command]
 fn create_local_workspace(name: &str) -> String {
     install_clusters_parallel();
-//     thread::spawn(move || {
-//         create_api("task -a".to_string());
-//         create_api("just start".to_string());
-//     }};
-//
-// thread::spawn(move || {
-// // some work here
-// Command::new("sh")
-// .arg("-c")
-// .arg(command)
-// .spawn()
-// .expect("command failed to run");
-// });
+    //     thread::spawn(move || {
+    //         create_api("task -a".to_string());
+    //         create_api("just start".to_string());
+    //     }};
+    //
+    // thread::spawn(move || {
+    // // some work here
+    // Command::new("sh")
+    // .arg("-c")
+    // .arg(command)
+    // .spawn()
+    // .expect("command failed to run");
+    // });
 
     // create_api("just list".to_string());
     create_api("ipconfig getifaddr en0".to_string());
