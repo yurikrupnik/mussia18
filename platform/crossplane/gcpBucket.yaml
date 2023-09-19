@@ -1,0 +1,214 @@
+#apiVersion: storage.gcp.upbound.io/v1beta1
+#kind: Bucket
+#metadata:
+#  name: example
+#  labels:
+#    project: mussia30
+#  annotations:
+#    crossplane.io/external-name: upbound-bucket-a3aa0af89
+#spec:
+#  forProvider:
+#    location: US
+#    storageClass: MULTI_REGIONAL
+#  providerConfigRef:
+#    name: default
+#  deletionPolicy: Delete
+---
+apiVersion: storage.gcp.upbound.io/v1beta1
+kind: Bucket
+metadata:
+#  generateName: crossplane-bucket-
+  name: yuri-crossplane-bucket
+  labels:
+    docs.crossplane.io/example: provider-gcp
+spec:
+  forProvider:
+    location: US
+    storageClass: MULTI_REGIONAL
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete
+---
+apiVersion: storage.gcp.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: crossplane-bucket-mussia30
+  labels:
+    docs.crossplane.io/example: provider-gcp
+  annotations:
+    crossplane.io/external-name: mussia30-temp-bucket
+spec:
+  forProvider:
+    location: US
+    storageClass: MULTI_REGIONAL
+    labels:
+      iac: crossplane
+      team: backend
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete
+---
+apiVersion: storage.gcp.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: crossplane-bucket-alina
+  labels:
+    docs.crossplane.io/example: provider-gcp
+    iac: crossplane
+  annotations:
+    crossplane.io/external-name: alina-temp-bucket
+spec:
+  forProvider:
+    location: US
+    storageClass: MULTI_REGIONAL
+    labels:
+      app: alina
+      team: yuri
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete
+#---
+#apiVersion: storage.gcp.upbound.io/v1beta1
+#kind: Bucket
+#metadata:
+#  name: alina-bags
+#  labels:
+#    docs.crossplane.io/example: provider-gcp
+#  annotations:
+#    crossplane.io/external-name: alina-bagss
+#spec:
+#  forProvider:
+#    location: US
+#    storageClass: MULTI_REGIONAL
+#    labels:
+#      app: alina-bags
+#      team: alina
+#  providerConfigRef:
+#    name: default
+#  deletionPolicy: Delete
+---
+apiVersion: bigquery.gcp.upbound.io/v1beta1
+kind: Dataset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: bigquery/v1beta1/datatransferconfig
+  labels:
+    iac: crossplane
+    testing.upbound.io/example-name: alinaa
+  name: "alina-dev"
+spec:
+  forProvider:
+    defaultTableExpirationMs: 3600000
+    description: This is a test description
+    friendlyName: test
+    labels:
+      env: default
+    location: EU
+---
+apiVersion: bigquery.gcp.upbound.io/v1beta1
+kind: Dataset
+metadata:
+  annotations:
+    meta.upbound.io/example-id: bigquery/v1beta1/datatransferconfig
+  labels:
+    testing.upbound.io/example-name: aris
+    iac: crossplane
+  name: "aris"
+spec:
+  forProvider:
+    defaultTableExpirationMs: 3600000
+    description: This is a aris description
+    friendlyName: Aris
+    labels:
+      env: default
+      iac: crossplane
+    location: EU
+---
+apiVersion: container.gcp.upbound.io/v1beta1
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: container/v1beta1/cluster
+  labels:
+    testing.upbound.io/example-name: nodepool
+  name: nodepool
+spec:
+  forProvider:
+    initialNodeCount: 1
+    location: us-central1-a
+    removeDefaultNodePool: true
+---
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: wordpress-example
+spec:
+  forProvider:
+    chart:
+      name: wordpress
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.2.5
+    namespace: wordpress
+    set:
+      - name: param1
+        value: value2
+    values:
+      service:
+        type: ClusterIP
+      mariadb:
+        enabled: false
+      externaldb:
+        enabled: false
+  providerConfigRef:
+    name: provider-helm
+---
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: nginx-example
+spec:
+  forProvider:
+    chart:
+      name: bitnami/nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: 14.0.0
+    namespace: nginx
+    set:
+      - name: param1
+        value: value2
+    values:
+      service:
+        type: ClusterIP
+      mariadb:
+        enabled: false
+      externaldb:
+        enabled: false
+  providerConfigRef:
+    name: provider-helm
+#apiVersion: s3.aws.upbound.io/v1beta1
+#kind: Bucket
+#metadata:
+#  annotations:
+#    crossplane.io/external-name: test-channel-bucket
+#    meta.upbound.io/example-id: configservice/v1beta1/awsconfigurationrecorderstatus
+#  labels:
+#    testing.upbound.io/example-name: b
+#  name: test-channel-bucket-yuri
+#spec:
+#  forProvider:
+#    forceDestroy: true
+#    region: us-west-1
+#---
+#apiVersion: s3.aws.upbound.io/v1beta1
+#kind: Bucket
+#metadata:
+#  annotations:
+#    crossplane.io/external-name: yuri-north-bucket
+#    meta.upbound.io/example-id: configservice/v1beta1/awsconfigurationrecorderstatus
+#  labels:
+#    testing.upbound.io/example-name: b
+#  name: yuri-north-bucket
+#spec:
+#  forProvider:
+#    forceDestroy: true
+#    region: eu-west-3

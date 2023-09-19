@@ -1,0 +1,46 @@
+version: '3'
+vars:
+  CLUSTER_TYPE: kind
+  INGRESS_TYPE: ingress
+tasks:
+  setup:local:
+    cmds:
+      - task: kind-local-cluster:up
+      - task: ingress
+  kind-local-cluster:up:
+    desc: Create kind 4 cores local cluster.
+    summary: Create Kind Cluster
+    aliases:
+      - create
+    dir: platform/cluster
+    preconditions:
+      - test -f cluster.yaml
+    cmds:
+#      - ctlptl create cluster {{.CLUSTER_TYPE}} --registry=ctlptl-registry
+      - kind create cluster --config cluster.yaml
+      - task: ingress
+  kind-local-cluster:down:
+    desc: Delete Kind Cluster.
+    summary: Delete Kind Cluster.
+    aliases:
+      - delete
+    cmds:
+      - kind delete cluster
+
+  ingress:
+    cmds:
+      - kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+      - kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=90s
+
+# TODO finish testing
+  apigateway:
+    cmds:
+      - kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v0.7.1/standard-install.yaml
+
+  istio:
+    cmds:
+      - echo
+
+  linkerd:
+    cmds:
+      - echo

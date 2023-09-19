@@ -1,0 +1,16 @@
+# https://taskfile.dev
+# TODO check this
+version: '3'
+
+vars:
+  allow: false
+
+tasks:
+  up:
+    cmds:
+      - docker-compose up -d
+    dir: scripts
+  down:
+    cmds:
+      - docker-compose down
+    dir: scripts

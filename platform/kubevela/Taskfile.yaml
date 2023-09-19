@@ -1,0 +1,19 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  install:
+    cmds:
+#      - vela install -y
+      - helm install --create-namespace -n vela-system kubevela kubevela/vela-core --wait
+      - vela addon enable velaux
+#      - vela addon enable fluxcd
+#      - vela port-forward addon-velaux -n vela-system 8080:80
+  apply:
+    dir: platform/kubevela
+    cmds:
+      - kubectl apply -f vela.yaml

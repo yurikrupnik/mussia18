@@ -1,0 +1,33 @@
+# https://taskfile.dev
+
+version: '3'
+includes:
+#  tasks:
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+  cargo:fmt:
+    cmds:
+      - cargo fmt
+  cargo:test:
+    cmds:
+      - cargo test
+  cargo:build:
+    cmds:
+      - cargo build
+  cargo:tauri:dev:
+    cmds:
+      - cargo tauri dev
+  dev:
+    aliases:
+      - d
+    deps:
+      - setup:local
+    cmds:
+      - echo sd
