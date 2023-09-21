@@ -82,7 +82,6 @@ pub fn App(cx: Scope) -> impl IntoView {
                 .await
                 .as_string()
                 .unwrap();
-            set_greet_msg.set(new_msg);
         });
     };
 
@@ -104,7 +103,48 @@ pub fn App(cx: Scope) -> impl IntoView {
                 .await
                 .as_string()
                 .unwrap();
-            set_greet_msg.set(new_msg);
+        });
+    };
+
+    let install_metallb = move |ev: SubmitEvent| {
+        ev.prevent_default();
+        println!("env {ev:?}");
+        spawn_local(async move {
+            if name.get().is_empty() {
+                return;
+            }
+
+            let args = to_value(&ClusterArgs {
+                name: &name.get(),
+                cpu: 1,
+            })
+                .unwrap();
+            // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+            let new_msg = invoke("install_metallb", args)
+                .await
+                .as_string()
+                .unwrap();
+        });
+    };
+
+    let install_helm = move |ev: SubmitEvent| {
+        ev.prevent_default();
+        println!("env {ev:?}");
+        spawn_local(async move {
+            if name.get().is_empty() {
+                return;
+            }
+
+            let args = to_value(&ClusterArgs {
+                name: &name.get(),
+                cpu: 1,
+            })
+                .unwrap();
+            // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+            let new_msg = invoke("install_helm", args)
+                .await
+                .as_string()
+                .unwrap();
         });
     };
 
@@ -151,6 +191,28 @@ pub fn App(cx: Scope) -> impl IntoView {
                 </form>
 
                 <p><b>{ move || greet_msg.get() }</b></p>
+            </div>
+            <div>
+                <p>"Click on the Tauri and Leptos logos to learn more."</p>
+                <form class="row" on:submit=install_metallb>
+                    <input
+                        id="greet-input"
+                        placeholder="Enter cluster name..."
+                        on:input=update_name
+                    />
+                    <button type="submit">"Install Helm"</button>
+                </form>
+            </div>
+            <div>
+                <p>"Click on the Tauri and Leptos logos to learn more."</p>
+                <form class="row" on:submit=install_helm>
+                    <input
+                        id="greet-input"
+                        placeholder="Enter cluster name..."
+                        on:input=update_name
+                    />
+                    <button type="submit">"Install via Kubectl"</button>
+                </form>
             </div>
         </main>
     }

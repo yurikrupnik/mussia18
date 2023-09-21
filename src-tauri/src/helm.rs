@@ -52,3 +52,5 @@ async fn helm_install() -> Result<(), kube::Error> {
 
     Ok(())
 }
+
+
