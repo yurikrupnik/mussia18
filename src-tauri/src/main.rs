@@ -1,16 +1,18 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use clap::builder::Str;
 // use serde::__private::de::IdentifierDeserializer;
-use std::fmt::format;
+// use clap::builder::Str;
+// use std::fmt::format;
 use std::process::{Child, Command};
 use std::thread;
 
 mod cluster;
-use crate::cluster::{create_file, install_metallb_helper};
-use cluster::{create_api,run_command};
-use log::info;
+use crate::cluster::install_metallb_helper;
+// use crate::cluster::{create_file};
+use cluster::run_command;
+// use cluster::{create_api};
+// use log::info;
 
 // use cluster::create_file;
 // use clap::Parser;
@@ -28,7 +30,7 @@ fn command_run() -> String {
         // .stdout(Stdio::inherit())
         // .stderr(Stdio::inherit())
         .spawn()
-        .expect("ls command failed to start");
+        .expect("ls command failed to stasrt");
 
     // It's streaming here
 
@@ -61,9 +63,9 @@ fn greet(name: &str) -> String {
 //     }
 // }
 
-fn create_command() {
-    let command = clap::Command::new("cluster-info").subcommand(clap::Command::new("cluster-data"));
-}
+// fn create_command() {
+//     let command = clap::Command::new("cluster-info").subcommand(clap::Command::new("cluster-data"));
+// }
 
 // struct Args {
 //     /// Name of the person to greet
@@ -90,38 +92,37 @@ fn create_command() {
 
 /// Api is the same as go tasks https://taskfile.dev/api/
 /// Todo try to make it generic without writing
-struct Requires {
-    vars: Vec<String>
-}
-struct InternalCommand {
-    pub dir: String,
-    pub cmd: String,
-    requires: Requires,
-    shopt: Vec<String>,
-    set: Vec<String>,
-    platforms: Vec<String>,
-    dotenv: Vec<String>,
-    status: Vec<String>,
-    generates: Vec<String>,
-    sources: Vec<String>,
-    aliases: Vec<String>,
-    summary: String,
-    prompt: String,
-    prefix: String,
-    method: String,
-    run: String,
-    task: String,
-    ignore_error: bool,
-    sitent: bool,
-    internal: bool,
-    interactive: bool,
-    // vars: Vec<>
-}
+// struct Requires {
+//     vars: Vec<String>,
+// }
+// struct InternalCommand {
+//     pub dir: String,
+//     pub cmd: String,
+//     requires: Requires,
+//     shopt: Vec<String>,
+//     set: Vec<String>,
+//     platforms: Vec<String>,
+//     dotenv: Vec<String>,
+//     status: Vec<String>,
+//     generates: Vec<String>,
+//     sources: Vec<String>,
+//     aliases: Vec<String>,
+//     summary: String,
+//     prompt: String,
+//     prefix: String,
+//     method: String,
+//     run: String,
+//     task: String,
+//     ignore_error: bool,
+//     sitent: bool,
+//     internal: bool,
+//     interactive: bool,
+//     // vars: Vec<>
+// }
 
-
-struct Task {
-    color: bool,
-}
+// struct Task {
+//     color: bool,
+// }
 
 async fn install_clusters_parallel() {
     // let s = create_api(
@@ -145,12 +146,12 @@ async fn install_clusters_parallel() {
 }
 
 #[tauri::command]
-fn create_local_workspace(name: &str)  {
+fn create_local_workspace(name: &str) {
     let commands = vec![
         "ctlptl create cluster k3d --registry=ctlptl-registry",
         // "helm repo add crossplane-stable https://charts.crossplane.io/stable && helm repo update",
         // "helm install crossplane --namespace crossplane-system --create-namespace crossplane-stable/crossplane",
-        "ipconfig getifaddr en0"
+        "ipconfig getifaddr en0",
     ];
 
     // Create a vector to hold child processes
@@ -158,9 +159,7 @@ fn create_local_workspace(name: &str)  {
 
     // Spawn threads to run each command concurrently
     for command in commands {
-        let child = thread::spawn(move || {
-            run_command(command.to_string())
-        });
+        let child = thread::spawn(move || run_command(command.to_string()));
         children.push(child);
     }
 }
@@ -175,8 +174,8 @@ fn delete_local_workspace(name: &str) {
 fn install_metallb(name: &str) {
     format!("delete_local_workspace {}!", name);
     install_metallb_helper();
-//     run_command("kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.11/config/manifests/metallb-native.yaml
-// ".to_string());
+    //     run_command("kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.11/config/manifests/metallb-native.yaml
+    // ".to_string());
 }
 mod cli {
     // use clap::*;

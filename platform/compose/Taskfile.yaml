@@ -8,9 +8,9 @@ vars:
 tasks:
   up:
     cmds:
-      - docker-compose up -d
-    dir: scripts
+      - docker-compose up
+    dir: platform/compose
   down:
     cmds:
       - docker-compose down
-    dir: scripts
+    dir: platform/compose

@@ -2,6 +2,7 @@
 
 version: '3'
 includes:
+  compose: platform/compose
 #  tasks:
 
 vars:

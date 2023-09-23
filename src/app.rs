@@ -118,12 +118,9 @@ pub fn App(cx: Scope) -> impl IntoView {
                 name: &name.get(),
                 cpu: 1,
             })
-                .unwrap();
+            .unwrap();
             // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-            let new_msg = invoke("install_metallb", args)
-                .await
-                .as_string()
-                .unwrap();
+            let new_msg = invoke("install_metallb", args).await.as_string().unwrap();
         });
     };
 
@@ -139,12 +136,9 @@ pub fn App(cx: Scope) -> impl IntoView {
                 name: &name.get(),
                 cpu: 1,
             })
-                .unwrap();
+            .unwrap();
             // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-            let new_msg = invoke("install_helm", args)
-                .await
-                .as_string()
-                .unwrap();
+            let new_msg = invoke("install_helm", args).await.as_string().unwrap();
         });
     };
 
