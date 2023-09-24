@@ -1,9 +1,11 @@
+
 FROM messense/rust-musl-cross:x86_64-musl AS builder
 WORKDIR /
 #ARG APP_NAME
 COPY ./Cargo.toml .
 COPY ./Cargo.lock .
-COPY . .
+COPY ./src .
+COPY ./src-tauri .
 #COPY ./apps/rust ./apps/rust
 #COPY ./libs/rust ./libs/rust
 RUN cargo build --release --target x86_64-unknown-linux-musl

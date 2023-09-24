@@ -1,16 +1,16 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use clap::builder::Str;
-use serde::__private::de::IdentifierDeserializer;
-use std::fmt::format;
+// use clap::builder::Str;
+// use std::fmt::format;
+// use serde::__private::de::IdentifierDeserializer;
 use std::process::Command;
 use std::thread;
-
 mod cluster;
-use crate::cluster::create_file;
 use cluster::create_api;
-use log::info;
+
+// use crate::cluster::create_file;
+// use log::info;
 
 // use cluster::create_file;
 // use clap::Parser;
@@ -43,50 +43,6 @@ fn command_run() -> String {
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
-
-// mod clapper {
-//     use clap::Parser;
-//
-//     /// Simple program to greet a person
-//     #[derive(Parser, Debug)]
-//     #[command(author, version, about, long_about = None)]
-//     struct Args {
-//         /// Name of the person to greet
-//         #[arg(short, long)]
-//         name: String,
-//
-//         /// Number of times to greet
-//         #[arg(short, long, default_value_t = 1)]
-//         count: u8,
-//     }
-// }
-
-fn create_command() {
-    let command = clap::Command::new("cluster-info").subcommand(clap::Command::new("cluster-data"));
-}
-
-// struct Args {
-//     /// Name of the person to greet
-//     #[arg(short, long)]
-//     name: String,
-//
-//     /// Number of times to greet
-//     #[arg(short, long, default_value_t = 1)]
-//     count: u8,
-// }
-
-// impl LocalClusters {
-//
-//     pub fn get_collection<'a>(num: u8) -> &'a str {
-//         let se = create_api("kubectx".to_string());
-//         // let s = create_file("kubectx".to_string());
-//         // const FOOT: Lang = Lang::En {
-//         //     singular: "user",
-//         //     plural: "users",
-//         // };
-//         // FOOT.fmt(num)
-//     }
-// }
 
 /// Api is the same as go tasks https://taskfile.dev/api/
 /// Todo try to make it generic without writing
@@ -198,6 +154,18 @@ mod cli {
 
 fn main() {
     tauri::Builder::default()
+        .setup(|app| {
+            match app.get_cli_matches() {
+                // `matches` here is a Struct with { args, subcommand }.
+                // `args` is `HashMap<String, ArgData>` where `ArgData` is a struct with { value, occurrences }.
+                // `subcommand` is `Option<Box<SubcommandMatches>>` where `SubcommandMatches` is a struct with { name, matches }.
+                Ok(matches) => {
+                    println!("{:?}", matches)
+                }
+                Err(_) => {}
+            }
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![
             greet,
             create_local_workspace,

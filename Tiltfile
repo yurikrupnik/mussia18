@@ -1,5 +1,5 @@
 # qlocal_resource('bun', cmd='bun install', deps=['package.json'], labels=['bun'])
-local_resource('clapper-run', cmd='cargo run -p clapper -- --name aris', deps=['apps/clapper'], labels=['run', 'clapper', 'cargo'])
+local_resource('clapper-run', cmd='cargo run -p clapper -- -h', deps=['apps/clapper'], labels=['run', 'clapper', 'cargo'])
 # local_resource('clapper-run', cmd='cargo run -p clapper -- --name aris systems create 3', deps=['apps/clapper'], labels=['run', 'clapper', 'cargo'])
 local_resource('clapper-build', cmd='cargo build -p clapper --release', deps=['apps/clapper'], labels=['build', 'clapper', 'cargo'])
 # local_resource('cargo-first_operator', cmd='cargo build -p second_operator --release', deps=['./apps/first_operator', 'libs'], labels=['cargo', 'build', 'first_operator'])
@@ -10,6 +10,9 @@ local_resource('clapper-build', cmd='cargo build -p clapper --release', deps=['a
 #     deps=['./src-tauri', './src'],
 #     labels=['cargo', 'tauri']
 # )
+include('./apps/actix_demo/Tiltfile')
+include('./apps/api/Tiltfile')
+k8s_yaml(kustomize('k8s/overlays/dev'))
 local_resource(
     'cargo-build',
     cmd='cargo build',
@@ -34,12 +37,10 @@ local_resource(
 # k8s_yaml(["platform/crossplane/storage/compositeResourceDefinition.yaml", "platform/crossplane/storage/composition.yaml"])
 # Local dev resources
 # include('./libs/cdk8s/Tiltfile')
-
 # k8s_yaml(kustomize('_proto/'))
 # include('./apps/rust/master_operator/Tiltfile')
 # include('./apps/rust/actix_app/Tiltfile')
 # include('./apps/rust/clapper/Tiltfile')
-# k8s_yaml(kustomize('k8s/overlays/dev'))
 # include('./apps/node/node-users-grpc/Tiltfile')
 # include('./submodules/tauri-app/Tiltfile') # include if not started via cli
 # include('./submodules/first-rust-app/Tiltfile')
