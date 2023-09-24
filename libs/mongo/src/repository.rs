@@ -29,11 +29,8 @@ where
             .insert_one(item, None)
             .await
             .expect("Error creating item");
-        // let new_id = item.inserted_id.as_str().unwrap();
         let obj_id = item.inserted_id.as_object_id().unwrap();
         let filter = doc! {"_id": obj_id};
-        // let result = self.find_by_id(new_id).await.expect("Error finding item");
-        // todo reuse find_by_id
         let result = self.col.find_one(filter, None).await.expect("As");
         Ok(result)
     }
@@ -52,6 +49,9 @@ where
         self.col
             .drop(None)
             .await
+            // .and_then(|a| {
+            //     println!("A {a}");
+            // });
             .expect("Error dropping collection");
         Ok(())
     }

@@ -1,6 +1,6 @@
-mod app;
-
-use app::*;
+// mod app;
+//
+// use app::*;
 use leptos::*;
 use leptos_router::*;
 
@@ -100,7 +100,8 @@ fn main() {
             <div>
                 <h3>"My App here"</h3>
                 // <AppRouter />
-                <App/>
+                <DarkModeToggle name={"ads".to_string()} is_dark={true} />
+                // <App/>
             </div>
         }
     })

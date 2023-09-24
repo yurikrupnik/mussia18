@@ -1,8 +1,8 @@
-use std::error::Error;
-use std::fmt::format;
-use std::fs::File;
-use std::future::Future;
-use std::io::prelude::*;
+// use std::error::Error;
+// use std::fmt::format;
+// use std::fs::File;
+// use std::future::Future;
+// use std::io::prelude::*;
 use std::process::{Child, Command};
 // use std::thread;
 // use clap::Arg;
@@ -19,11 +19,11 @@ use std::process::{Child, Command};
 //     minikube,
 // }
 
-pub fn create_file() -> std::io::Result<()> {
-    let mut file = File::create("aris.txt")?;
-    file.write_all(b"Hello, world!")?;
-    Ok(())
-}
+// pub fn create_file() -> std::io::Result<()> {
+//     let mut file = File::create("aris.txt")?;
+//     file.write_all(b"Hello, world!")?;
+//     Ok(())
+// }
 pub fn run_command(command: String) -> Child {
     let child = Command::new("sh")
         .arg("-c")

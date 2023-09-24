@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: actix-api
+  labels:
+    app: actix-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: actix-api
+  template:
+    metadata:
+      name: actix-api
+      labels:
+        app: actix-api
+    spec:
+      containers:
+        - name: actix-api
+          image: yurikrupnik/api
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+---
+#apiVersion: foos.clux.dev/v1
+#kind: Foo
+#metadata:
+#  name: my-shit
+#spec:
+#  name: foraa
+#  info: Some info here
+#  replicas: 4
