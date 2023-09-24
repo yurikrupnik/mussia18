@@ -78,14 +78,15 @@ fn create_local_cluster() {
 fn delete_local_cluster() {
     todo!()
     // std::thread::spawn:
-
 }
-
-
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet, create_local_cluster, delete_local_cluster])
+        .invoke_handler(tauri::generate_handler![
+            greet,
+            create_local_cluster,
+            delete_local_cluster
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
