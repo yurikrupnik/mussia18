@@ -1,6 +1,7 @@
 [build]
 target = "./index.html"
 
+# does not work really!!
 [watch]
 ignore = ["./src-tauri"]
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/apps/actix_demo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/apps/api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/apps/clapper" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/apps/first_operator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/apps/second_operator" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/cli" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/shared" vcs="Git" />
+  </component>
+</project>

@@ -2,7 +2,8 @@
 
 version: '3'
 includes:
-#  tasks:
+  compose: platform/compose
+  kubevela: platform/kubevela
 
 vars:
   GREETING: Hello, World!

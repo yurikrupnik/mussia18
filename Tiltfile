@@ -1,15 +1,15 @@
 # qlocal_resource('bun', cmd='bun install', deps=['package.json'], labels=['bun'])
-local_resource('clapper-run', cmd='cargo run -p clapper -- --name aris', deps=['apps/clapper'], labels=['run', 'clapper', 'cargo'])
-# local_resource('clapper-run', cmd='cargo run -p clapper -- --name aris systems create 3', deps=['apps/clapper'], labels=['run', 'clapper', 'cargo'])
+local_resource('clapper-run', cmd='cargo run -p clapper -- cluster create 1', deps=['apps/clapper'], labels=['run', 'clapper', 'cargo'])
+# local_resource('clapper-run', cmd='cargo run -p clapper -r -- cluster delete 1', deps=['apps/clapper'], labels=['run', 'clapper', 'cargo'])
 local_resource('clapper-build', cmd='cargo build -p clapper --release', deps=['apps/clapper'], labels=['build', 'clapper', 'cargo'])
-# local_resource('cargo-first_operator', cmd='cargo build -p second_operator --release', deps=['./apps/first_operator', 'libs'], labels=['cargo', 'build', 'first_operator'])
-# local_resource(
-#     'cargo-tauri-dev',
-#     cmd='cargo tauri dev',
-#     allow_parallel=True,
-#     deps=['./src-tauri', './src'],
-#     labels=['cargo', 'tauri']
-# )
+local_resource('cargo-first_operator', cmd='cargo build -p second_operator --release', deps=['./apps/first_operator', 'libs'], labels=['cargo', 'build', 'first_operator'])
+local_resource(
+     'cargo-tauri-dev',
+     cmd='cargo build',  # cargo tauri dev
+     allow_parallel=True,
+     deps=['./src-tauri', './src'],
+     labels=['cargo', 'tauri']
+)
 local_resource(
     'cargo-build',
     cmd='cargo build',
@@ -27,7 +27,7 @@ local_resource(
 
 # include('./k8s/helm/Tiltfile')
 
-# k8s_yaml(["k8s/proto.yaml"])
+k8s_yaml(["k8s/testing.yaml"])
 
 # k8s_yaml(kustomize('k8s/base'))
 # k8s_yaml('k8s/base/core/core.yaml')
