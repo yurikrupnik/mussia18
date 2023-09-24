@@ -1,0 +1,18 @@
+resources:
+  - mongodb.yaml
+  - redis.yaml
+#  - surrealdb.yaml
+  #  - ../../bases
+  - ../../../apps/actix_demo/k8s/overlays/dev
+  - ../../../apps/api/k8s/overlays/dev
+  - ../../../apps/clapper/k8s/overlays/dev
+#  - ../../../apps/rust/actix_app/k8s/overlays/dev
+#  - ../../../apps/rust/actix_app/k8s/overlays/dev
+#  - ../../../apps/rust/clapper/k8s/overlays/dev
+#  - ../../../apps/go/fiber-app/k8s/overlays/dev
+#  - ../../../apps/node/nest-app/k8s/overlays/dev
+#  - ../../../apps/node/node-users-redis/k8s/overlays/dev
+#  - ../../../apps/frontend/solid-app/k8s/overlays/dev
+#  - ../../../apps/frontend/astro/k8s/overlays/dev
+#helmCharts:
+#  -

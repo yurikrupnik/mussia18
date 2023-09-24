@@ -2,7 +2,7 @@
 extern crate kube;
 use kube::api::Api;
 use kube::Client;
-use kube::helm::HelmRelease;
+use kube::helm::HwelmRelease;
 use kube::helm::ReleaseSpec;
 use kube::ResourceExt;
 // use <kube::metadata::>Metadata::</kube::metadata::>
